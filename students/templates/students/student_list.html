@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Students</h1>
+
+{% if students %}
+    <ul>
+    {% for student in students %}
+        <li>{{ student.name }} — {{ student.email }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No students registered.</p>
+{% endif %}
+{% endblock %}

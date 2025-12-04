@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>All Courses</h1>
+
+{% if courses %}
+    <ul>
+    {% for course in courses %}
+        <li>
+            <strong>{{ course.code }} - {{ course.title }}</strong><br>
+            Schedule: {{ course.schedule }}<br>
+            Capacity: {{ course.capacity }}
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No courses available.</p>
+{% endif %}
+{% endblock %}
