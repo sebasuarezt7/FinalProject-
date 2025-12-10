@@ -1,6 +1,7 @@
 from django.urls import path
-from . import views
+from .views import enroll, drop_course
 
 urlpatterns = [
-    path('', views.enrollment_list, name='enrollment_list'),
+    path("enroll/<int:course_id>/", enroll, name="enroll"),
+    path("drop/<int:enrollment_id>/", drop_course, name="drop_course"),
 ]
