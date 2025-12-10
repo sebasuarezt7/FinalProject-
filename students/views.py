@@ -4,12 +4,17 @@ from django.contrib.auth.decorators import login_required
 from .forms import StudentRegisterForm
 from courses.models import Course
 from enrollments.models import Enrollment
+from students.models import Student   
 
 def register_student(request):
     if request.method == "POST":
         form = StudentRegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
+
+            
+            Student.objects.create(user=user)
+
             login(request, user)
             return redirect("student_dashboard")
     else:
@@ -36,7 +41,9 @@ def student_login(request):
 @login_required
 def student_dashboard(request):
     courses = Course.objects.all()
-    my_enrollments = Enrollment.objects.filter(student=request.user)
+
+    # ahora request.user.student SI existe
+    my_enrollments = Enrollment.objects.filter(student=request.user.student)
 
     return render(request, "students/dashboard.html", {
         "courses": courses,

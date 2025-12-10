@@ -1,0 +1,30 @@
+# ---> Django
+*.log
+*.pot
+*.pyc
+__pycache__/
+db.sqlite3
+/media
+staticfiles/
+
+# Do not upload environment variables
+.env
+
+# MySQL dumps
+*.sql
+
+# VSCode settings
+.vscode/
+
+# macOS junk
+.DS_Store
+
+# Python virtual environments
+venv/
+env/
+django_env/
+*.egg-info/
+
+# Migrations cache (optional to ignore)
+*/migrations/__pycache__/
+*/migrations/*.pyc
