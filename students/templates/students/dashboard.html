@@ -2,32 +2,81 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<h2>Welcome, {{ request.user.username }} </h2>
 
-<h3>Available Courses</h3>
-<div class="course-list">
-    {% for course in courses %}
-        <div class="course-card">
-            <p><strong>{{ course.code }}</strong>: {{ course.title }}</p>
-            <a class="btn" href="/enrollments/enroll/{{ course.id }}/">Enroll</a>
+<div class="dashboard-wrapper">
+
+    <!-- HEADER -->
+    <div class="dashboard-header">
+        <h1>Welcome, {{ request.user.username }}</h1>
+        <p class="subtitle">Manage your courses and track your enrollments</p>
+    </div>
+
+    <!-- AVAILABLE COURSES -->
+    <section class="dashboard-section">
+        <div class="section-header">
+            <h2>Available Courses</h2>
+            <div class="line"></div>
         </div>
-    {% empty %}
-        <p>No courses available.</p>
-    {% endfor %}
-</div>
 
-<hr>
+        {% if courses %}
+        <div class="grid">
+            {% for course in courses %}
+            <div class="course-card">
 
-<h3>Your Enrollments</h3>
-<div class="course-list">
-    {% for enrollment in my_enrollments %}
-        <div class="course-card">
-            <p><strong>{{ enrollment.course.code }}</strong>: {{ enrollment.course.title }}</p>
-            <a class="btn-danger" href="/enrollments/drop/{{ enrollment.id }}/">Drop</a>
+                <div class="course-header">
+                    <h3>{{ course.code }}</h3>
+                    <span class="tag available">Available</span>
+                </div>
+
+                <p class="course-name">{{ course.title }}</p>
+
+                <div class="course-footer">
+                    {% if course.id in enrolled_course_ids %}
+                        <span class="tag enrolled-tag">Already Enrolled</span>
+                    {% else %}
+                        <a href="/enrollments/enroll/{{ course.id }}/" class="btn enroll-btn">Enroll</a>
+                    {% endif %}
+                </div>
+
+            </div>
+            {% endfor %}
         </div>
-    {% empty %}
-        <p>You are not enrolled in any courses yet.</p>
-    {% endfor %}
+        {% else %}
+        <p class="empty-text">No courses available.</p>
+        {% endif %}
+    </section>
+
+    <!-- ENROLLMENTS -->
+    <section class="dashboard-section">
+        <div class="section-header">
+            <h2>Your Enrollments</h2>
+            <div class="line"></div>
+        </div>
+
+        {% if my_enrollments %}
+        <div class="grid">
+            {% for enrollment in my_enrollments %}
+            <div class="course-card enrolled">
+
+                <div class="course-header">
+                    <h3>{{ enrollment.course.code }}</h3>
+                    <span class="tag enrolled-tag">Enrolled</span>
+                </div>
+
+                <p class="course-name">{{ enrollment.course.title }}</p>
+
+                <div class="course-footer">
+                    <a href="/enrollments/drop/{{ enrollment.id }}/" class="btn drop-btn">Drop</a>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="empty-text">You are not enrolled in any courses yet.</p>
+        {% endif %}
+    </section>
+
 </div>
 
 {% endblock %}

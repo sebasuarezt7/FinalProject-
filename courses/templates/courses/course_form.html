@@ -1,9 +1,21 @@
-<h1>Add Course</h1>
+{% extends "base.html" %}
+{% block title %}Add Course{% endblock %}
 
-<form method="POST">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Save</button>
-</form>
+{% block content %}
 
-<a href="/courses/">Back to course list</a>
+<div class="card">
+    <h2>Add New Course</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="btn">Save Course</button>
+    </form>
+
+    <div class="link">
+        <a href="/courses/">← Back to course list</a>
+    </div>
+</div>
+
+{% endblock %}

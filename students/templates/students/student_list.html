@@ -1,15 +1,19 @@
 {% extends "base.html" %}
+{% block title %}Students{% endblock %}
 
 {% block content %}
-<h1>Students</h1>
+<h1 class="page-title">Registered Students</h1>
 
 {% if students %}
-    <ul>
-    {% for student in students %}
-        <li>{{ student.name }} — {{ student.email }}</li>
-    {% endfor %}
-    </ul>
+    <div class="student-list">
+        {% for student in students %}
+            <div class="student-card">
+                <h3>{{ student.name }}</h3>
+                <p>{{ student.email }}</p>
+            </div>
+        {% endfor %}
+    </div>
 {% else %}
-    <p>No students registered.</p>
+    <p class="empty-message">No students registered yet.</p>
 {% endif %}
 {% endblock %}
