@@ -9,14 +9,30 @@
 </head>
 <body>
 
-    <div class="nav">
-        <a href="/">Home</a>
-        <a href="/students/login/">Login</a>
-        <a href="/students/register/">Register</a>
-        <a href="/students/dashboard/">Dashboard</a>
-    </div>
+    <!-- NAVBAR MODERNA -->
+    <nav class="navbar">
+        <div class="logo">ClassReg</div>
 
+        <div class="nav-right">
+            <a href="/">Home</a>
+            <a href="/students/login/">Login</a>
+            <a href="/students/register/">Register</a>
+            <a href="/students/dashboard/">Dashboard</a>
+        </div>
+    </nav>
+
+    <!-- MAIN PAGE CONTENT -->
     <div class="content">
+
+        <!-- MESSAGES -->
+        {% if messages %}
+            <div class="messages-container">
+                {% for message in messages %}
+                    <div class="msg {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
         {% block content %}{% endblock %}
     </div>
 
