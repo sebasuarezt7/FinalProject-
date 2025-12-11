@@ -28,3 +28,6 @@ django_env/
 # Migrations cache (optional to ignore)
 */migrations/__pycache__/
 */migrations/*.pyc
+
+
+.env

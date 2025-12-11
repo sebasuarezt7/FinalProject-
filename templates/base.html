@@ -9,22 +9,24 @@
 </head>
 <body>
 
-    <!-- NAVBAR MODERNA -->
     <nav class="navbar">
         <div class="logo">ClassReg</div>
-
+    
         <div class="nav-right">
-            <a href="/">Home</a>
-            <a href="/students/login/">Login</a>
-            <a href="/students/register/">Register</a>
-            <a href="/students/dashboard/">Dashboard</a>
+            {% if request.user.is_authenticated %}
+                <a href="/">Home</a>
+                <a href="/students/dashboard/">Dashboard</a>
+                <a href="/students/logout/?next=/">Logout</a>
+            {% else %}
+                <a href="/">Home</a>
+                <a href="/students/login/">Login</a>
+                <a href="/students/register/">Register</a>
+            {% endif %}
         </div>
     </nav>
 
-    <!-- MAIN PAGE CONTENT -->
     <div class="content">
 
-        <!-- MESSAGES -->
         {% if messages %}
             <div class="messages-container">
                 {% for message in messages %}

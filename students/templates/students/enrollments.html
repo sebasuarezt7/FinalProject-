@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}My Enrollments{% endblock %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+
+    <div class="dashboard-header">
+        <h1>Your Enrollments</h1>
+        <p class="subtitle">Here you can review and drop your enrolled courses</p>
+    </div>
+
+    {% if my_enrollments %}
+        <div class="grid">
+            {% for enrollment in my_enrollments %}
+            <div class="course-card enrolled">
+
+                <div class="course-header">
+                    <h3>{{ enrollment.course.code }}</h3>
+                    <span class="tag enrolled-tag">Enrolled</span>
+                </div>
+
+                <p class="course-name">{{ enrollment.course.title }}</p>
+
+                <div class="course-footer">
+                    <a href="{% url 'drop_course' enrollment.id %}" class="btn drop-btn">Drop</a>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="empty-text">You are not enrolled in any courses yet.</p>
+    {% endif %}
+
+</div>
+{% endblock %}

@@ -1,5 +1,54 @@
 {% extends "base.html" %}
+{% block title %}Professor Dashboard{% endblock %}
+
 {% block content %}
-<h1>Professor Dashboard</h1>
-<p>This is the area your professor will manage.</p>
+<div class="dashboard-wrapper">
+    <div class="dashboard-header">
+        <h1>Welcome, Professor {{ request.user.username }}</h1>
+        <p class="subtitle">Manage the courses available for students</p>
+    </div>
+    <form method="get" class="search-form" style="margin-bottom: 16px;">
+        <input
+            type="text"
+            name="q"
+            placeholder="Search by code or title"
+            value="{{ search_query }}"
+            class="search-input"
+        />
+        <button type="submit" class="btn enroll-btn">
+            Search
+        </button>
+    </form>
+
+    <section class="dashboard-section">
+        <div class="section-header">
+            <h2>Your Courses</h2>
+            <div class="line"></div>
+        </div>
+
+        <a href="{% url 'course_create' %}" class="btn enroll-btn" style="margin-bottom: 16px;">
+            + Create New Course
+        </a>
+
+        {% if courses %}
+            <div class="grid">
+                {% for course in courses %}
+                    <div class="course-card">
+                        <div class="course-header">
+                            <h3>{{ course.code }}</h3>
+                        </div>
+                        <p class="course-name">{{ course.title }}</p>
+
+                        <div class="course-footer">
+                            <a href="{% url 'course_edit' course.id %}" class="btn enroll-btn">Edit</a>
+                            <a href="{% url 'course_delete' course.id %}" class="btn drop-btn">Delete</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="empty-text">No courses created yet.</p>
+        {% endif %}
+    </section>
+</div>
 {% endblock %}

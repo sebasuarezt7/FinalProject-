@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Delete Course{% endblock %}
+
+{% block content %}
+<div class="card auth-card">
+    <h2>Delete Course</h2>
+    <p>Are you sure you want to delete the course <strong>{{ course.code }} - {{ course.title }}</strong>?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn-auth">Yes, delete</button>
+        <a href="{% url 'professor_dashboard' %}" class="btn-auth" style="background:#777; text-decoration:none; display:inline-block; margin-left:8px;">
+            Cancel
+        </a>
+    </form>
+</div>
+{% endblock %}

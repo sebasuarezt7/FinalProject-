@@ -9,7 +9,24 @@
     <div class="dashboard-header">
         <h1>Welcome, {{ request.user.username }}</h1>
         <p class="subtitle">Manage your courses and track your enrollments</p>
+        <a href="{% url 'student_enrollments' %}" class="btn enrollments-link">
+            View My Enrollments
+        </a>
     </div>
+     <!-- 🔍 SEARCH BAR -->
+     <form method="get" class="search-form">
+        <input
+            type="text"
+            name="q"
+            placeholder="Search by code or title"
+            value="{{ search_query }}"
+            class="search-input"
+        />
+        <button type="submit" class="btn enroll-btn">
+            Search
+        </button>
+    </form>
+
 
     <!-- AVAILABLE COURSES -->
     <section class="dashboard-section">
@@ -34,7 +51,7 @@
                     {% if course.id in enrolled_course_ids %}
                         <span class="tag enrolled-tag">Already Enrolled</span>
                     {% else %}
-                        <a href="/enrollments/enroll/{{ course.id }}/" class="btn enroll-btn">Enroll</a>
+                        <a href="{% url 'enroll' course.id %}" class="btn enroll-btn">Enroll</a>
                     {% endif %}
                 </div>
 
@@ -45,38 +62,6 @@
         <p class="empty-text">No courses available.</p>
         {% endif %}
     </section>
-
-    <!-- ENROLLMENTS -->
-    <section class="dashboard-section">
-        <div class="section-header">
-            <h2>Your Enrollments</h2>
-            <div class="line"></div>
-        </div>
-
-        {% if my_enrollments %}
-        <div class="grid">
-            {% for enrollment in my_enrollments %}
-            <div class="course-card enrolled">
-
-                <div class="course-header">
-                    <h3>{{ enrollment.course.code }}</h3>
-                    <span class="tag enrolled-tag">Enrolled</span>
-                </div>
-
-                <p class="course-name">{{ enrollment.course.title }}</p>
-
-                <div class="course-footer">
-                    <a href="/enrollments/drop/{{ enrollment.id }}/" class="btn drop-btn">Drop</a>
-                </div>
-
-            </div>
-            {% endfor %}
-        </div>
-        {% else %}
-        <p class="empty-text">You are not enrolled in any courses yet.</p>
-        {% endif %}
-    </section>
-
 </div>
 
 {% endblock %}
